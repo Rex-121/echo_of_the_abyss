@@ -1,0 +1,3 @@
+[submodule "Assets/Plugins"]
+	path = Assets/Plugins
+	url = git@github.com:Rex-121/eota_plugins.git
