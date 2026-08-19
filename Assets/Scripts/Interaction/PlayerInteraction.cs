@@ -3,7 +3,7 @@ using UnityEngine;
 // 鼠标挖掘/放置：规则判断走数据层
 public class PlayerInteraction : MonoBehaviour
 {
-    public World world;
+    public World world => GameManager.main.gameWorld.World;
     public BlockId placeBlock = BlockId.Dirt; // 放地面
     public float actionInterval = 0.15f;       // 长按 tick 间隔
     public byte digDamage = 1;

@@ -18,23 +18,22 @@ public class GameWorld : MonoBehaviour
     public World World { get; private set; }
     public bool IsReady { get; private set; }
 
-    Tilemap terrain;
+    public Tilemap terrain;
     Transform player; // 由 GameManager 注入
     readonly Queue<Vector2Int> pending = new Queue<Vector2Int>();
     Vector2Int lastPlayerChunk = new Vector2Int(int.MaxValue, int.MaxValue);
 
     void Awake()
     {
-        if (blockTable == null)
+        if (blockTable == null || terrain == null)
         {
-            Debug.LogError("GameWorld: blockTable 未赋值");
+            Debug.LogError("GameWorld: blockTable 或 terrain 未赋值");
             enabled = false;
             return;
         }
 
-        var go = new GameObject("Terrain", typeof(Tilemap), typeof(TilemapRenderer));
-        go.transform.SetParent(transform, false);
-        terrain = go.GetComponent<Tilemap>();
+        // 材质（Sprite-Lit-Default）已在场景 TilemapRenderer 上配置，代码不再干预
+
         World = new World(blockTable);
         World.OnBlockChanged += OnBlockChanged;
     }

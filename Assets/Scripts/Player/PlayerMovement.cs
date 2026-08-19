@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public const float HalfSize = 0.4f; // 玩家 AABB 半宽（0.8 格，能钻 1 格宽通道）
 
     public float moveSpeed = 5f;
-    public World world;
+    public World world => GameManager.main.gameWorld.World;
 
     const float Step = 0.05f; // 碰撞步进精度
 
