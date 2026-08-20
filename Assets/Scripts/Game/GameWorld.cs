@@ -18,16 +18,19 @@ public class GameWorld : MonoBehaviour
     public World World { get; private set; }
     public bool IsReady { get; private set; }
 
+    WallShadows wallShadows; // 自动挂载，放墙投影
+
     public Tilemap terrain;
+    public Tilemap wallTilemap; // 墙层：只画 Wall，sortingOrder 高于 terrain
     Transform player; // 由 GameManager 注入
     readonly Queue<Vector2Int> pending = new Queue<Vector2Int>();
     Vector2Int lastPlayerChunk = new Vector2Int(int.MaxValue, int.MaxValue);
 
     void Awake()
     {
-        if (blockTable == null || terrain == null)
+        if (blockTable == null || terrain == null || wallTilemap == null)
         {
-            Debug.LogError("GameWorld: blockTable / terrain 未赋值");
+            Debug.LogError("GameWorld: blockTable / terrain / wallTilemap 未赋值");
             enabled = false;
             return;
         }
@@ -36,6 +39,9 @@ public class GameWorld : MonoBehaviour
 
         World = new World(blockTable);
         World.OnBlockChanged += OnBlockChanged;
+
+        wallShadows = GetComponent<WallShadows>();
+        if (wallShadows == null) wallShadows = gameObject.AddComponent<WallShadows>();
     }
 
     void Start() => StartCoroutine(StreamRoutine());
@@ -111,8 +117,18 @@ public class GameWorld : MonoBehaviour
     // 数据层单格变化 → 同步渲染（Air 清 tile）
     void OnBlockChanged(int x, int y, BlockId id)
     {
-        BlockEntry e = blockTable.Get(id);
-        terrain.SetTile(new Vector3Int(x, y, 0), e != null ? e.tile : null);
+        PaintCell(new Vector3Int(x, y, 0), id);
+        wallShadows.SetWall(x, y, id == BlockId.Wall);
+    }
+
+    // 方块画到所属层：Wall→墙层（地面层清），其余→地面层（墙层清）
+    void PaintCell(Vector3Int pos, BlockId id)
+    {
+        BlockEntry e = id != BlockId.Air ? blockTable.Get(id) : null;
+        TileBase t = e != null ? e.tile : null;
+        bool wall = id == BlockId.Wall;
+        terrain.SetTile(pos, wall ? null : t);
+        wallTilemap.SetTile(pos, wall ? t : null);
     }
 
     // 把 chunk 数据刷到渲染层（运行时改动走 World.SetBlock）
@@ -131,8 +147,8 @@ public class GameWorld : MonoBehaviour
                 BlockData b = c.blocks[Chunk.Index(lx, ly)];
                 pos.Set(baseX + lx, baseY + ly, 0);
 
-                BlockEntry e = blockTable.Get(b.id);
-                if (!b.IsAir && e != null && e.tile != null) terrain.SetTile(pos, e.tile);
+                PaintCell(pos, b.id);
+                if (b.id == BlockId.Wall) wallShadows.SetWall(pos.x, pos.y, true); // 重画恢复投影
             }
         }
     }
@@ -149,10 +165,13 @@ public class GameWorld : MonoBehaviour
             for (int lx = 0; lx < Chunk.Size; lx++)
             {
                 pos.Set(baseX + lx, baseY + ly, 0);
-                if (!c.blocks[Chunk.Index(lx, ly)].IsAir) terrain.SetTile(pos, null);
+                terrain.SetTile(pos, null);
+                wallTilemap.SetTile(pos, null);
             }
         }
         c.painted = false;
+
+        wallShadows.ClearArea(baseX, baseY, Chunk.Size); // 远处墙投影一并卸掉
     }
 
     // 半径内所有 chunk 坐标，近的排前面

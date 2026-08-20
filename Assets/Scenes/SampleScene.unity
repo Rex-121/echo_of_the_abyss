@@ -574,7 +574,7 @@ MonoBehaviour:
   activeRadius: 2
   unloadRadius: 4
   terrain: {fileID: 1615364949}
-  sideTilemap: {fileID: 297679387}
+  wallTilemap: {fileID: 297679387}
 --- !u!1 &1253886264
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +585,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1253886265}
   - component: {fileID: 1253886266}
-  - component: {fileID: 1253886267}
   m_Layer: 0
   m_Name: "\u4FBF\u643A\u5149"
   m_TagString: Untagged
@@ -637,7 +636,7 @@ MonoBehaviour:
   m_NormalMapDistance: 3
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
-  m_ShadowIntensityEnabled: 0
+  m_ShadowIntensityEnabled: 1
   m_ShadowIntensity: 0.75
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
@@ -658,22 +657,6 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!114 &1253886267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1253886264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dbab298cda14c4aa564c40c9ad399cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseIntensity: 1.2
-  amplitude: 0.25
-  speed: 2
-  randomness: 0.3
 --- !u!1 &1266427340
 GameObject:
   m_ObjectHideFlags: 0
