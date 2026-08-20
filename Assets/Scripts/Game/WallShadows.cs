@@ -18,6 +18,8 @@ public class WallShadows : MonoBehaviour
     static readonly Vector3Int[] Dirs = { new Vector3Int(0, 1, 0), new Vector3Int(1, 0, 0), new Vector3Int(0, -1, 0), new Vector3Int(-1, 0, 0) };
     static int shapeCounter; // 每写一次递增，保证 hash 变化触发 mesh 重建
 
+    public float edgePad = 0f; // 预留：轮廓外扩（格）。背光侧外扩会把阴影起点推远，默认关闭
+
     readonly Dictionary<Vector3Int, Segment> cellSeg = new Dictionary<Vector3Int, Segment>(); // 格 → 所属块
     readonly List<Segment> segments = new List<Segment>();
     readonly Stack<ShadowCaster2D> casterPool = new Stack<ShadowCaster2D>();
@@ -190,7 +192,11 @@ public class WallShadows : MonoBehaviour
             int dx = curV.x - prev.x, dy = curV.y - prev.y;
             if (dx * (next.y - curV.y) - dy * (next.x - curV.x) == 0 &&
                 dx * (next.x - curV.x) + dy * (next.y - curV.y) > 0) continue;
-            pts.Add(new Vector3(curV.x - minX, curV.y - minY, 0f));
+            // 外法线 (-dy,dx)（顺时针环）；顶点偏移 = 入边法线 + 出边法线，直角处为对角偏移
+            int ex = next.x - curV.x, ey = next.y - curV.y;
+            float ox = (-dy - ey) * edgePad;
+            float oy = (dx + ex) * edgePad;
+            pts.Add(new Vector3(curV.x - minX + ox, curV.y - minY + oy, 0f));
         }
         pts.Reverse();
 
