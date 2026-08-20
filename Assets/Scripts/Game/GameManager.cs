@@ -37,10 +37,10 @@ public class GameManager : MonoBehaviour
     {
         player.transform.position = gameWorld.GetSpawnPoint();
 
-        var sr = player.GetComponent<SpriteRenderer>();
-        sr.sprite = MakeSquareSprite();
-        sr.color = new Color(0.2f, 0.9f, 1f); // 青色，与泥土区分
-        sr.sortingOrder = 10;
+        // var sr = player.GetComponent<SpriteRenderer>();
+        // sr.sprite = MakeSquareSprite();
+        // sr.color = new Color(0.2f, 0.9f, 1f); // 青色，与泥土区分
+        // sr.sortingOrder = 10;
         // 材质（Sprite-Lit-Default）已在场景 SpriteRenderer 上配置，代码不再覆盖
 
         // 注入 world（场景里无法序列化）
@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
 
         // 相机跟随挂相机上（挂玩家上会把玩家 z 拉进相机裁剪面）
         var cam = Camera.main;
-        cam.orthographicSize = 8f;
+        // cam.orthographicSize = 8f;
         var follow = cam.GetComponent<CameraFollow>();
         if (follow == null) follow = cam.gameObject.AddComponent<CameraFollow>();
         follow.target = player.transform;

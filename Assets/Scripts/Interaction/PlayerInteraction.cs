@@ -55,9 +55,12 @@ public class PlayerInteraction : MonoBehaviour
     bool TryPlace(Vector2Int cell)
     {
         if (!world.IsCellLoaded(cell.x, cell.y)) return false;
-        if (!world.GetBlock(cell.x, cell.y).IsAir) return false;
         if (!InRange(cell)) return false;
         if (CellOverlapsPlayer(cell)) return false;
+
+        // 墙占据地面格（Dirt→Wall，该格不可走）；其他方块填 Air
+        BlockId cur = world.GetBlock(cell.x, cell.y).id;
+        if (placeBlock == BlockId.Wall ? cur != BlockId.Dirt : cur != BlockId.Air) return false;
 
         world.SetBlock(cell.x, cell.y, placeBlock);
         return true;

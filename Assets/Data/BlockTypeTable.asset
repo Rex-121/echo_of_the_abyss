@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f88c5c2d4b144ad5b5bb97216d3ef552, type: 3}
   m_Name: BlockTypeTable
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
   entries:
   - id: 0
     tile: {fileID: 0}
@@ -19,3 +19,6 @@ MonoBehaviour:
   - id: 1
     tile: {fileID: 11400000, guid: 6d00e838df4114f5b92b2b68b9bf99b0, type: 2}
     maxHp: 3
+  - id: 2
+    tile: {fileID: 11400000, guid: 0705b6e4efff34cbe8390b3935480358, type: 2}
+    maxHp: 8

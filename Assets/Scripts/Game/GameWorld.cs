@@ -27,7 +27,7 @@ public class GameWorld : MonoBehaviour
     {
         if (blockTable == null || terrain == null)
         {
-            Debug.LogError("GameWorld: blockTable 或 terrain 未赋值");
+            Debug.LogError("GameWorld: blockTable / terrain 未赋值");
             enabled = false;
             return;
         }
@@ -122,19 +122,19 @@ public class GameWorld : MonoBehaviour
         int baseY = c.coord.y << Chunk.Shift;
         var pos = new Vector3Int();
 
+        c.painted = true;
+
         for (int ly = 0; ly < Chunk.Size; ly++)
         {
             for (int lx = 0; lx < Chunk.Size; lx++)
             {
                 BlockData b = c.blocks[Chunk.Index(lx, ly)];
-                if (b.IsAir) continue;
-
                 pos.Set(baseX + lx, baseY + ly, 0);
+
                 BlockEntry e = blockTable.Get(b.id);
-                if (e != null && e.tile != null) terrain.SetTile(pos, e.tile);
+                if (!b.IsAir && e != null && e.tile != null) terrain.SetTile(pos, e.tile);
             }
         }
-        c.painted = true;
     }
 
     // 清掉 chunk 渲染（数据不动）
@@ -148,9 +148,8 @@ public class GameWorld : MonoBehaviour
         {
             for (int lx = 0; lx < Chunk.Size; lx++)
             {
-                if (c.blocks[Chunk.Index(lx, ly)].IsAir) continue;
                 pos.Set(baseX + lx, baseY + ly, 0);
-                terrain.SetTile(pos, null);
+                if (!c.blocks[Chunk.Index(lx, ly)].IsAir) terrain.SetTile(pos, null);
             }
         }
         c.painted = false;
