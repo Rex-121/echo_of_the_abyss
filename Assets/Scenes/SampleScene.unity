@@ -511,6 +511,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c043dd1909384df3ba9dec0fae51e1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  renderer2D: {fileID: 11400000, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
 --- !u!1 &967659409
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,6 +599,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1253886265}
   - component: {fileID: 1253886266}
+  - component: {fileID: 1253886267}
   m_Layer: 0
   m_Name: "\u4FBF\u643A\u5149"
   m_TagString: Untagged
@@ -658,6 +672,24 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &1253886267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1253886264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d219ce22aa414e7ba3e419d2df6eaa3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseIntensity: 1.2
+  breatheAmplitude: 0.4
+  breatheSpeed: 2
+  flickerRandomness: 0.3
+  driftRadius: 0.05
+  driftSpeed: 1
 --- !u!1 &1266427340
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,19 +938,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c043dd1909384df3ba9dec0fae51e1a4, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
-  renderer2D: {fileID: 11400000, guid: 424799608f7334c24bf367e4bbfa7f9a, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
