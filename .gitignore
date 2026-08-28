@@ -85,3 +85,6 @@ archive/*
 
 # Excel 临时锁文件
 ~$*
+
+# Rider/IDE 工作区
+**/.idea/

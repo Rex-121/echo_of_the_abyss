@@ -5,7 +5,6 @@ using UnityEngine;
 public class Inventory
 {
     readonly ItemStack[] slots;
-    readonly ItemTypeTable table;
 
     public int SlotCount => slots.Length;
     public int Selected { get; private set; }
@@ -15,24 +14,23 @@ public class Inventory
     // 选中槽变化（同索引不触发）
     public event Action OnSelectedChanged;
 
-    public Inventory(ItemTypeTable table, int slotCount)
+    public Inventory(int slotCount)
     {
-        this.table = table;
         slots = new ItemStack[slotCount];
     }
 
-    // 加道具，返回实际放入数：先并同 id 未满堆，再开空槽；maxStack≤1 视为不可堆叠
-    public int Add(ItemId id, int amount)
+    // 加道具，返回实际放入数：先并同种未满堆（引用相等即同种），再开空槽；StackMax≤1 视为不可堆叠
+    public int Add(IInventoryItem item, int amount)
     {
-        if (id == ItemId.None || amount <= 0) return 0;
+        if (item == null || amount <= 0) return 0;
 
-        int max = MaxStack(id);
+        int max = item.StackMax < 1 ? 1 : (int)item.StackMax;
         int put = 0;
 
         if (max > 1)
             for (int i = 0; i < slots.Length && amount > 0; i++)
             {
-                if (slots[i].id != id || slots[i].count >= max) continue;
+                if (slots[i].item != item || slots[i].count >= max) continue;
                 int n = Mathf.Min(max - slots[i].count, amount);
                 slots[i].count += (ushort)n;
                 amount -= n; put += n;
@@ -43,7 +41,7 @@ public class Inventory
         {
             if (!slots[i].IsEmpty) continue;
             int n = Mathf.Min(max, amount);
-            slots[i] = new ItemStack { id = id, count = (ushort)n };
+            slots[i] = new ItemStack { item = item, count = (ushort)n };
             amount -= n; put += n;
             OnSlotChanged?.Invoke(i);
         }
@@ -99,11 +97,5 @@ public class Inventory
             slots[i] = default;
             OnSlotChanged?.Invoke(i);
         }
-    }
-
-    int MaxStack(ItemId id)
-    {
-        ItemEntry e = table.Get(id);
-        return e == null || e.maxStack < 1 ? 1 : e.maxStack;
     }
 }

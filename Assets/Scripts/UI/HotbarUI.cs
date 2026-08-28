@@ -22,7 +22,7 @@ public class HotbarUI : MonoBehaviour
             return;
         }
 
-        inv = new Inventory(itemTable, transform.childCount);
+        inv = new Inventory(transform.childCount);
         borders = new Image[inv.SlotCount];
         icons = new Image[inv.SlotCount];
         counts = new Text[inv.SlotCount];
@@ -44,9 +44,9 @@ public class HotbarUI : MonoBehaviour
         // GM：加一组测试道具 / 清空
         if (Input.GetKeyDown(KeyCode.G))
         {
-            inv.Add(ItemId.DirtChunk, 5);
-            inv.Add(ItemId.WallBrick, 5);
-            inv.Add(ItemId.AlchemistTable, 1);
+            inv.Add(itemTable.GetByName("Item_DirtChunk"), 5);
+            inv.Add(itemTable.GetByName("Item_WallBrick"), 5);
+            inv.Add(itemTable.GetByName("Item_AlchemistTable"), 1);
         }
         if (Input.GetKeyDown(KeyCode.C)) inv.Clear();
     }
@@ -96,8 +96,7 @@ public class HotbarUI : MonoBehaviour
     void RefreshSlot(int i)
     {
         ItemStack s = inv.GetSlot(i);
-        ItemEntry e = s.IsEmpty ? null : itemTable.Get(s.id);
-        icons[i].sprite = e != null ? e.icon : null;
+        icons[i].sprite = s.IsEmpty ? null : s.item.Icon;
         counts[i].text = !s.IsEmpty && s.count > 1 ? s.count.ToString() : "";
     }
 

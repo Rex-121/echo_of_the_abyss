@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5724b54d146a59f47a806bf8e7e6052a, type: 3}
+  m_Name: Item_DirtChunk
+  m_EditorClassIdentifier:
+  numericId: 1
+  displayName: 土块
+  icon: {fileID: 1299369116, guid: 16d8e09cefa6347e89387c2c31fc00e8, type: 3}
+  maxStack: 99
+  placeable: 1
