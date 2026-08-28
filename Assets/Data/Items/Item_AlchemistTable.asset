@@ -11,9 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5724b54d146a59f47a806bf8e7e6052a, type: 3}
   m_Name: Item_AlchemistTable
-  m_EditorClassIdentifier:
-  numericId: 3
-  displayName: 炼金桌
-  icon: {fileID: 21300000, guid: 5e85d5ffae3164c4894e96fd3912a341, type: 3}
-  maxStack: 1
-  placeable: 0
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []

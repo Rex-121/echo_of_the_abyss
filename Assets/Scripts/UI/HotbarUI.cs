@@ -44,9 +44,9 @@ public class HotbarUI : MonoBehaviour
         // GM：加一组测试道具 / 清空
         if (Input.GetKeyDown(KeyCode.G))
         {
-            inv.Add(itemTable.GetByName("Item_DirtChunk"), 5);
-            inv.Add(itemTable.GetByName("Item_WallBrick"), 5);
-            inv.Add(itemTable.GetByName("Item_AlchemistTable"), 1);
+            inv.Add(itemTable.GetById(2), 5);
+            inv.Add(itemTable.GetById(1), 5);
+            inv.Add(itemTable.GetById(3), 1);
         }
         if (Input.GetKeyDown(KeyCode.C)) inv.Clear();
     }
@@ -96,7 +96,7 @@ public class HotbarUI : MonoBehaviour
     void RefreshSlot(int i)
     {
         ItemStack s = inv.GetSlot(i);
-        icons[i].sprite = s.IsEmpty ? null : s.item.Icon;
+        icons[i].sprite = s.IsEmpty ? null : s.item.icon;
         counts[i].text = !s.IsEmpty && s.count > 1 ? s.count.ToString() : "";
     }
 

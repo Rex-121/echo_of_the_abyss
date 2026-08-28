@@ -24,7 +24,7 @@ public class Inventory
     {
         if (item == null || amount <= 0) return 0;
 
-        int max = item.StackMax < 1 ? 1 : (int)item.StackMax;
+        int max = item.stackMax < 1 ? 1 : (int)item.stackMax;
         int put = 0;
 
         if (max > 1)

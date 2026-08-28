@@ -11,9 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5724b54d146a59f47a806bf8e7e6052a, type: 3}
   m_Name: Item_WallBrick
-  m_EditorClassIdentifier:
-  numericId: 2
-  displayName: 墙砖
-  icon: {fileID: 376386410, guid: 90ee0b706da544872816b7fb28ca8889, type: 3}
-  maxStack: 99
-  placeable: 2
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
