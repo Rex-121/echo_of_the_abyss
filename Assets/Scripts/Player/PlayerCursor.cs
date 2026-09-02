@@ -19,8 +19,20 @@ namespace Player
 
         public Vector3 current;
 
+        public Vector3 world;
+        
+        public static PlayerCursor main;
         void Awake()
         {
+            if (main == null)
+            {
+                main = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+
             cam = Camera.main;
 
             indicator.transform.parent = null;
@@ -51,8 +63,8 @@ namespace Player
         public bool TryGetSelectedCell(out Vector2Int cell)
         {
             Vector3 mouse = Input.mousePosition;
-            mouse.z = Mathf.Abs(cam.transform.position.z);
-            Vector3 world = cam.ScreenToWorldPoint(mouse);
+            mouse.z = Mathf.Abs(cam.transform.position.z); 
+            world = cam.ScreenToWorldPoint(mouse);
 
             Vector2 p = transform.position;
             int r = Mathf.CeilToInt(maxReach);

@@ -19,6 +19,14 @@ public class Inventory
         slots = new ItemStack[slotCount];
     }
 
+    public void Use(Vector3 pointAt, Vector3 world)
+    {
+        
+        
+        var item = slots[Selected];
+        Debug.Log($"使用道具{item}, {pointAt}, {world}");
+    }
+
     // 加道具，返回实际放入数：先并同种未满堆（引用相等即同种），再开空槽；StackMax≤1 视为不可堆叠
     public int Add(IInventoryItem item, int amount)
     {
@@ -76,6 +84,8 @@ public class Inventory
         if ((uint)index >= slots.Length || index == Selected) return;
         Selected = index;
         OnSelectedChanged?.Invoke();
+        
+        Debug.Log($"当前选中道具{index}");
     }
 
     public ItemStack GetSlot(int index) =>
