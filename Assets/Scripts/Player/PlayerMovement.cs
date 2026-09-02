@@ -39,10 +39,10 @@ public class PlayerMovement : MonoBehaviour
     bool CanStand(Vector2 c)
     {
         const float e = 0.0001f; // 收缩边界，避免恰在格线上多算一格
-        int x0 = Mathf.FloorToInt(c.x - HalfSize + e);
-        int x1 = Mathf.FloorToInt(c.x + HalfSize - e);
-        int y0 = Mathf.FloorToInt(c.y - HalfSize + e);
-        int y1 = Mathf.FloorToInt(c.y + HalfSize - e);
+        int x0 = Mathf.FloorToInt(c.x - HalfSize + e + 0.5f); // +0.5：格心=整数，取整到所在格
+        int x1 = Mathf.FloorToInt(c.x + HalfSize - e + 0.5f);
+        int y0 = Mathf.FloorToInt(c.y - HalfSize + e + 0.5f);
+        int y1 = Mathf.FloorToInt(c.y + HalfSize - e + 0.5f);
 
         for (int y = y0; y <= y1; y++)
             for (int x = x0; x <= x1; x++)

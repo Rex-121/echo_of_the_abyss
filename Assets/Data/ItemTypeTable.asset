@@ -11,7 +11,16 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31787edf260a7406883bd2b6c686b959, type: 3}
   m_Name: ItemTypeTable
-  m_EditorClassIdentifier:
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   items:
   - {fileID: 11400000, guid: 6d2fc7cd2d68013d0973f77cc2d50c4b, type: 2}
   - {fileID: 11400000, guid: c9547f60c3f1ca94ce01abe890fda392, type: 2}

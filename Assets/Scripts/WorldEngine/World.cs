@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 纯数据层：chunk 按需生成，所有方块读写必须经过这里，不持有任何渲染对象
-// 坐标不变量：全局方块坐标 == Tilemap cell 坐标（Grid 位于原点、cellSize=1）
+// 坐标不变量：全局方块坐标 == Tilemap cell 坐标；格心在世界整数点 (x,y)（Grid 偏移 -0.5、cellSize=1）
+// 世界点 w 所在格 = floor(w + 0.5)
 // 负数寻址依赖算术移位语义：-33 >> 5 = -2, -33 & 31 = 31
 public class World
 {
@@ -72,9 +73,9 @@ public class World
 
     // 世界坐标 → chunk 坐标
     public Vector2Int ChunkCoordOf(Vector3 worldPos) => new Vector2Int(
-        Mathf.FloorToInt(worldPos.x) >> Chunk.Shift,
-        Mathf.FloorToInt(worldPos.y) >> Chunk.Shift);
+        Mathf.FloorToInt(worldPos.x + 0.5f) >> Chunk.Shift,
+        Mathf.FloorToInt(worldPos.y + 0.5f) >> Chunk.Shift);
 
-    // 格子中心的世界坐标（Grid 原点、cellSize=1，纯数学换算）
-    public Vector3 CellCenter(int x, int y) => new Vector3(x + 0.5f, y + 0.5f, 0f);
+    // 格子中心的世界坐标（格心即整数点）
+    public Vector3 CellCenter(int x, int y) => new Vector3(x, y, 0f);
 }

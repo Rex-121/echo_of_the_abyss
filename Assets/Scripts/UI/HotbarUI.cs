@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class HotbarUI : MonoBehaviour
 {
     public ItemTypeTable itemTable;
+    public PlayerInventory playerInventory;
     public Color selectedColor = new Color(1f, 0.85f, 0.2f);
 
     Inventory inv;
@@ -21,8 +22,16 @@ public class HotbarUI : MonoBehaviour
             enabled = false;
             return;
         }
+        if (playerInventory == null)
+        {
+            Debug.LogError("[HotbarUI] 缺少 playerInventory", this);
+            enabled = false;
+            return;
+        }
 
-        inv = new Inventory(transform.childCount);
+        inv = playerInventory.Inv;
+        if (inv.SlotCount != transform.childCount)
+            Debug.LogError($"[HotbarUI] 槽数不符：Inventory {inv.SlotCount} != 格子 {transform.childCount}", this);
         borders = new Image[inv.SlotCount];
         icons = new Image[inv.SlotCount];
         counts = new Text[inv.SlotCount];

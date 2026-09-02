@@ -9,5 +9,5 @@ public interface IInventoryItem
     uint stackMax { get; }       // 单格堆叠上限；1 = 不可堆叠
 
     // 通用使用入口；不能主动使用的道具直接返回 false
-    // bool TryUse(ItemUseContext ctx);
+    bool TryUse(ItemUseContext ctx);
 }

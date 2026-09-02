@@ -6,6 +6,18 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Item_", menuName = "Echo/ItemDefinition")]
 public partial class ItemDefinitionSO : SerializedScriptableObject
 {
+    // 使用效果列表：空 = 材料类不可主动使用
+    public ItemEffect[] effects;
+
+    // 顺序执行效果，任一失败即中断
+    public bool TryUse(ItemUseContext ctx)
+    {
+        if (effects == null || effects.Length == 0) return false;
+
+        foreach (ItemEffect e in effects)
+            if (e == null || !e.Apply(ctx)) return false;
+        return true;
+    }
 
 #if UNITY_EDITOR
     void OnValidate()
