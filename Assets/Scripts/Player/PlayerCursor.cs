@@ -6,6 +6,11 @@ namespace Player
     public class PlayerCursor : MonoBehaviour
     {
         public float maxReach = 1f; // 选中格距玩家上限（unit）
+        public float snapSpeed = 15f; // 指示器趋近目标格的速度
+        public float flashSpeed = 10f; // 换格颜色恢复速度
+
+        Vector2Int lastCell;
+        float flash; // 换格瞬间 1，指数衰减到 0
         // public Color color = new Color(1f, 1f, 1f, 0.8f);
 
         Camera cam;
@@ -26,12 +31,20 @@ namespace Player
             bool has = TryGetSelectedCell(out Vector2Int cell);
             if (!has) return;
             current = new Vector3(cell.x, cell.y, 0f);
-            indicator.transform.position = current;
+            // 平滑趋近目标格（指数衰减，帧率无关）
+            float t = 1f - Mathf.Exp(-snapSpeed * Time.deltaTime);
+            indicator.transform.position = Vector3.Lerp(indicator.transform.position, current, t);
+
+            // 换格闪变：alpha 先压低再恢复
+            if (cell != lastCell) { lastCell = cell; flash = 1f; }
+            flash *= Mathf.Exp(-flashSpeed * Time.deltaTime);
 
             // 玩家所在格不可选中（红示）；后续建筑占格同样处理
             Vector2 p = transform.position;
             var playerCell = new Vector2Int(Mathf.FloorToInt(p.x + 0.5f), Mathf.FloorToInt(p.y + 0.5f));
-            indicator.color = cell == playerCell ? new Color(1f, 0f, 0f, 1) : Color.white;
+            Color c = cell == playerCell ? new Color(1f, 0f, 0f, 1f) : Color.white;
+            c.a = Mathf.Lerp(c.a, 0.15f, flash);
+            indicator.color = c;
         }
 
         // 选中格：maxReach 范围内格心里离鼠标最近的；鼠标超距时自然钳到边界可达格（人在(0,0)指(1,5)→(1,1)）

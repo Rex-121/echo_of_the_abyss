@@ -431,7 +431,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxReach: 1.7
-  color: {r: 1, g: 1, b: 1, a: 0.8}
+  snapSpeed: 20
+  flashSpeed: 4
   indicator: {fileID: 1218869131}
   current: {x: 0, y: 0, z: 0}
 --- !u!1 &297679386
@@ -1427,7 +1428,7 @@ GameObject:
   - component: {fileID: 1218869130}
   - component: {fileID: 1218869131}
   m_Layer: 0
-  m_Name: PlayerCursor
+  m_Name: "\u73A9\u5BB6\u653E\u7F6E\u6307\u793A\u5668"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
